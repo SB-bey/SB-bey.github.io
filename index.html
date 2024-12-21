@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/Lenovo/Desktop/wrx/wtx.html -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王廷香你没师德</title>
+    <style>
+        body {
+            font-family: '等线', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* 深色模式样式 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: #333;
+            margin-top: 15px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode h1 {
+            color: #ffffff;
+        }
+
+        .container {
+            position: relative;
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .image-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-grid img {
+            width: 32%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .image-grid img {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        .language-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 10;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1em;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .popup div {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+
+        .popup div:hover {
+            border-color: white;
+        }
+
+        .popup span {
+            margin-left: 10px;
+            font-size: 1em;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+
+        .back-to-top:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* 深色模式切换按钮 */
+        .mode-switch {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 10;
+        }
+
+        /* 注释文本 */
+        .mode-switch-text {
+            position: fixed;
+            bottom: 25px;
+            left: 70px;
+            font-size: 1em;
+            color: #333;
+            z-index: 10;
+        }
+
+        body.dark-mode .mode-switch-text {
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body class="dark-mode">
+
+<div class="container">
+    <div class="language-switch" onclick="togglePopup()">🌐</div>
+
+    <!-- 图片网格 -->
+    <div class="image-grid">
+        <img src="./wtx_files/photo1.jpg" alt="照片1" onclick="openImage(&#39;images/photo1.jpg&#39;)">
+        <img src="./wtx_files/photo2.jpg" alt="照片2" onclick="openImage(&#39;images/photo2.jpg&#39;)">
+        <img src="./wtx_files/photo3.jpg" alt="照片3" onclick="openImage(&#39;images/photo3.jpg&#39;)">
+    </div>
+
+    <h1 id="header-text">王廷香你真没师德</h1>
+
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top" onclick="scrollToTop()">↑</div>
+</div>
+
+<!-- 切换深色模式按钮 -->
+<div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
+
+<!-- 深色模式按钮旁的注释 -->
+<div class="mode-switch-text">点击图标切换主题</div>
+
+<!-- 弹出菜单 -->
+<div class="popup" id="popup">
+    <p style="color: white;">🌎 Select a Language:</p>
+    <div onclick="changeLanguage(&#39;zh&#39;)">
+        🇨🇳 <span>中文 (Chinese)</span>
+    </div>
+    <div onclick="changeLanguage(&#39;ja&#39;)">
+        🇯🇵 <span>日本語 (Japanese)</span>
+    </div>
+    <div onclick="changeLanguage(&#39;ko&#39;)">
+        🇰🇷 <span>한국어 (Korean)</span>
+    </div>
+    <div onclick="changeLanguage(&#39;en&#39;)">
+        🇺🇸 <span>English</span>
+    </div>
+</div>
+
+<script>
+    // 打开大图
+    function openImage(src) {
+        const imageWindow = window.open(src, '_blank');
+        imageWindow.focus();
+    }
+
+    // 切换语言
+    function togglePopup() {
+        const popup = document.getElementById('popup');
+        popup.classList.toggle('show');
+    }
+
+    function changeLanguage(lang) {
+        const headerText = document.getElementById('header-text');
+        const popup = document.getElementById('popup');
+
+        const translations = {
+            en: 'Wang Tingxiang, you really lack teacher ethics',
+            zh: '王廷香你真没师德',
+            ja: '王廷香、本当に教師としての倫理に欠けています',
+            ko: '왕팅샹, 당신은 정말 교사 윤리가 부족합니다',
+        };
+
+        headerText.innerHTML = translations[lang] || translations['en']; // 默认切换为英语
+        localStorage.setItem('lang', lang); // 保存语言选择
+        popup.classList.remove('show');
+    }
+
+    // 加载时检查语言设置
+    window.onload = () => {
+        const savedLang = localStorage.getItem('lang') || 'en';
+        changeLanguage(savedLang);
+    }
+
+    // 返回顶部
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 显示/隐藏返回顶部按钮
+    window.onscroll = () => {
+        if (document.documentElement.scrollTop > 200) {
+            document.querySelector('.back-to-top').style.display = 'block';
+        } else {
+            document.querySelector('.back-to-top').style.display = 'none';
+        }
+    }
+
+    // 切换深色模式
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+        localStorage.setItem('mode', currentMode); // 保存模式设置
+    }
+
+    // 加载时检查深色模式设置
+    window.onload = () => {
+        const savedMode = localStorage.getItem('mode') || 'light';
+        if (savedMode === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        const savedLang = localStorage.getItem('lang') || 'en';
+        changeLanguage(savedLang);
+    }
+</script>
+
+
+
+</body></html>
