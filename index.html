@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)file:///C:/Users/Lenovo/Desktop/wrx/wtx.html -->
-<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>王廷香你没师德</title>
     <style>
@@ -154,21 +154,33 @@
             color: #fff;
         }
 
+        /* 音频播放器样式 */
+        audio {
+            margin: 20px 0;
+            width: 90%;
+        }
+
     </style>
 </head>
-<body class="dark-mode">
+<body>
 
 <div class="container">
     <div class="language-switch" onclick="togglePopup()">🌐</div>
 
     <!-- 图片网格 -->
     <div class="image-grid">
-        <img src="./wtx_files/photo1.jpg" alt="照片1" onclick="openImage(&#39;images/photo1.jpg&#39;)">
-        <img src="./wtx_files/photo2.jpg" alt="照片2" onclick="openImage(&#39;images/photo2.jpg&#39;)">
-        <img src="./wtx_files/photo3.jpg" alt="照片3" onclick="openImage(&#39;images/photo3.jpg&#39;)">
+        <img src="images/photo1.jpg" alt="照片1" onclick="openImage('images/photo1.jpg')">
+        <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg')">
+        <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg')">
     </div>
 
     <h1 id="header-text">王廷香你真没师德</h1>
+
+    <!-- 音频播放器 -->
+    <audio controls>
+        <source src="audio/audio_sample.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放功能。
+    </audio>
 
     <!-- 返回顶部按钮 -->
     <div class="back-to-top" onclick="scrollToTop()">↑</div>
@@ -178,21 +190,21 @@
 <div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
 
 <!-- 深色模式按钮旁的注释 -->
-<div class="mode-switch-text">点击图标切换主题</div>
+<div class="mode-switch-text">点击按钮切换主题色</div>
 
 <!-- 弹出菜单 -->
 <div class="popup" id="popup">
     <p style="color: white;">🌎 Select a Language:</p>
-    <div onclick="changeLanguage(&#39;zh&#39;)">
+    <div onclick="changeLanguage('zh')">
         🇨🇳 <span>中文 (Chinese)</span>
     </div>
-    <div onclick="changeLanguage(&#39;ja&#39;)">
+    <div onclick="changeLanguage('ja')">
         🇯🇵 <span>日本語 (Japanese)</span>
     </div>
-    <div onclick="changeLanguage(&#39;ko&#39;)">
+    <div onclick="changeLanguage('ko')">
         🇰🇷 <span>한국어 (Korean)</span>
     </div>
-    <div onclick="changeLanguage(&#39;en&#39;)">
+    <div onclick="changeLanguage('en')">
         🇺🇸 <span>English</span>
     </div>
 </div>
@@ -264,6 +276,5 @@
     }
 </script>
 
-
-
-</body></html>
+</body>
+</html>
