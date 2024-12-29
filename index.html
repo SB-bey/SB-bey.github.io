@@ -1,180 +1,234 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王廷香你没师德</title>
-    <style>
-        body {
-            font-family: '等线', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王廷香你没师德</title>
+  <style>
+    body {
+      font-family: '等线', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      font-size: 16px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-        /* 深色模式样式 */
-        body.dark-mode {
-            background-color: #121212;
-            color: #ffffff;
-        }
+    /* 深色模式样式 */
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
 
-        h1 {
-            font-size: 2.2em;
-            color: #333;
-            margin-top: 15px;
-            transition: color 0.3s ease;
-        }
+    h1 {
+      font-size: 2.2em;
+      color: #333;
+      margin-top: 15px;
+      transition: color 0.3s ease;
+    }
 
-        body.dark-mode h1 {
-            color: #ffffff;
-        }
+    body.dark-mode h1 {
+      color: #ffffff;
+    }
 
-        .container {
-            position: relative;
-            width: 95%;
-            max-width: 800px;
-            margin: 20px auto;
-        }
+   .container {
+      position: relative;
+      width: 95%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
 
-        .image-grid {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+   .image - grid {
+      display: flex;
+      justify-content: space - between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-        .image-grid img {
-            width: 32%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+   .image - grid img {
+      width: 32%;
+      height: auto;
+      border - radius: 10px;
+      box - shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        body.dark-mode .image-grid img {
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
-        }
+    body.dark - mode.image - grid img {
+      box - shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+    }
 
-        .image-grid img:hover {
-            transform: scale(1.05);
-        }
+   .image - grid img:hover {
+      transform: scale(1.05);
+    }
 
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-        }
+   .back - to - top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background - color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      border - radius: 50%;
+      cursor: pointer;
+      display: none;
+    }
 
-        .back-to-top:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
+   .back - to - top:hover {
+      background - color: rgba(0, 0, 0, 0.8);
+    }
 
-        /* 深色模式切换按钮 */
-        .mode-switch {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            cursor: pointer;
-            font-size: 1.5em;
-            z-index: 10;
-        }
+    /* 深色模式切换按钮 */
+   .mode - switch {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      cursor: pointer;
+      font - size: 1.5em;
+      z - index: 10;
+    }
 
-        /* 注释文本 */
-        .mode-switch-text {
-            position: fixed;
-            bottom: 25px;
-            left: 70px;
-            font-size: 1em;
-            color: #333;
-            z-index: 10;
-        }
+    /* 注释文本 */
+   .mode - switch - text {
+      position: fixed;
+      bottom: 25px;
+      left: 70px;
+      font - size: 1em;
+      color: #333;
+      z - index: 10;
+    }
 
-        body.dark-mode .mode-switch-text {
-            color: #fff;
-        }
+    body.dark - mode.mode - switch - text {
+      color: #fff;
+    }
 
-        /* 音频播放器样式 */
-        audio {
-            margin: 20px 0;
-            width: 90%;
-        }
+    /* 音频播放器样式 */
+    audio {
+      margin: 20px 0;
+      width: 90%;
+    }
 
-    </style>
+    /* 分享按钮样式 */
+  .share - buttons {
+      display: flex;
+      justify - content: center;
+      gap: 10px;
+      margin - top: 20px;
+    }
+
+  .share - buttons a {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border - radius: 5px;
+      text - decoration: none;
+      color: #333;
+      transition: background - color 0.3s ease, color 0.3s ease;
+    }
+
+  .share - buttons a:hover {
+      background - color: #ccc;
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
     <h1>王廷香你真没师德</h1>
 
     <!-- 音频播放器 -->
     <audio controls>
-        <source src="audio/audio_sample.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放功能。
+      <source src="audio/audio_sample.mp3" type="audio/mpeg">
+      您的浏览器不支持音频播放功能。
     </audio>
 
     <!-- 图片网格 -->
-    <div class="image-grid">
-        <img src="images/photo1.jpg" alt="照片1" onclick="openImage('images/photo1.jpg')">
-        <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg')">
-        <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg')">
+    <div class="image - grid">
+      <img src="images/photo1.jpg" alt="照片1" onclick="openImage('images/photo1.jpg')">
+      <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg')">
+      <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg')">
+    </div>
+
+    <!-- 分享按钮 -->
+    <div class="share - buttons">
+      <a href="#" class="facebook - share">Facebook</a>
+      <a href="#" class="twitter - share">Twitter</a>
+      <a href="#" class="wechat - share">微信</a>
     </div>
 
     <!-- 返回顶部按钮 -->
-    <div class="back-to-top" onclick="scrollToTop()">↑</div>
-</div>
+    <div class="back - to - top" onclick="scrollToTop()">↑</div>
+  </div>
 
-<!-- 切换深色模式按钮 -->
-<div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
+  <!-- 切换深色模式按钮 -->
+  <div class="mode - switch" onclick="toggleDarkMode()">🌙</div>
 
-<!-- 深色模式按钮旁的注释 -->
-<div class="mode-switch-text">点击按钮切换主题色</div>
+  <!-- 深色模式按钮旁的注释 -->
+  <div class="mode - switch - text">点击按钮切换主题色</div>
 
-<script>
+  <script>
     // 打开大图
     function openImage(src) {
-        const imageWindow = window.open(src, '_blank');
-        imageWindow.focus();
+      const imageWindow = window.open(src, '_blank');
+      imageWindow.focus();
     }
 
     // 返回顶部
     function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // 显示/隐藏返回顶部按钮
     window.onscroll = () => {
-        if (document.documentElement.scrollTop > 200) {
-            document.querySelector('.back-to-top').style.display = 'block';
-        } else {
-            document.querySelector('.back-to-top').style.display = 'none';
-        }
+      if (document.documentElement.scrollTop > 200) {
+        document.querySelector('.back - to - top').style.display = 'block';
+      } else {
+        document.querySelector('.back - to - top').style.display = 'none';
+      }
     }
 
     // 切换深色模式
     function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-        localStorage.setItem('mode', currentMode); // 保存模式设置
+      document.body.classList.toggle('dark - mode');
+      const currentMode = document.body.classList.contains('dark - mode')? 'dark' : 'light';
+      localStorage.setItem('mode', currentMode); // 保存模式设置
     }
 
     // 加载时检查深色模式设置
     window.onload = () => {
-        const savedMode = localStorage.getItem('mode') || 'light';
-        if (savedMode === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
+      const savedMode = localStorage.getItem('mode') || 'light';
+      if (savedMode === 'dark') {
+        document.body.classList.add('dark - mode');
+      }
     }
-</script>
+
+    // Facebook分享
+    document.querySelector('.facebook - share').addEventListener('click', function () {
+      var url = window.location.href;
+      window.open('https://www.facebook.com/sharer.php?u=' + url, '_blank');
+      return false;
+    });
+
+    // Twitter分享
+    document.querySelector('.twitter - share').addEventListener('click', function () {
+      var url = window.location.href;
+      var text = "王廷香你真没师德";
+      window.open('https://twitter.com/intent/tweet?url=' + url + '&text=' + text, '_blank');
+      return false;
+    });
+
+    // 微信分享
+    document.querySelector('.wechat - share').addEventListener('click', function () {
+      var url = window.location.href;
+      var qrCodeUrl = 'https://api.qrserver.com/v1/create - qr - code/?size=150x150&data=' + url;
+      window.open(qrCodeUrl, '_blank');
+      return false;
+    });
+  </script>
 
 </body>
+
 </html>
