@@ -109,22 +109,6 @@
             width: 90%;
         }
 
-        /* 分享按钮样式 */
-        .share-buttons {
-            margin-top: 20px;
-        }
-
-        .share-buttons a {
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 1.5em;
-            color: #333;
-            transition: color 0.3s ease;
-        }
-
-        .share-buttons a:hover {
-            color: #0073e6;
-        }
     </style>
 </head>
 <body>
@@ -140,26 +124,13 @@
 
     <!-- 图片网格 -->
     <div class="image-grid">
-        <img src="images/photo1.jpg" alt="照片1">
-        <img src="images/photo2.jpg" alt="照片2">
-        <img src="images/photo3.jpg" alt="照片3">
+        <img src="images/photo1.jpg" alt="照片1" onclick="openImage('images/photo1.jpg')">
+        <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg')">
+        <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg')">
     </div>
 
     <!-- 返回顶部按钮 -->
     <div class="back-to-top" onclick="scrollToTop()">↑</div>
-
-    <!-- 分享按钮 -->
-    <div class="share-buttons">
-        <!-- 微信分享 -->
-        <a href="weixin://dl/officialaccounts?scene=100&need_open_webview=1&url=https://sb-bey.github.io/" target="_blank">微信分享</a>
-        <!-- Facebook 分享 -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://sb-bey.github.io/" target="_blank">Facebook</a>
-        <!-- Twitter 分享 -->
-        <a href="https://twitter.com/intent/tweet?url=https://sb-bey.github.io/" target="_blank">Twitter</a>
-        <!-- Line 分享 -->
-        <a href="https://social-plugins.line.me/lineit/share?url=https://sb-bey.github.io/" target="_blank">Line</a>
-    </div>
-
 </div>
 
 <!-- 切换深色模式按钮 -->
@@ -178,6 +149,15 @@
     // 返回顶部
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 显示/隐藏返回顶部按钮
+    window.onscroll = () => {
+        if (document.documentElement.scrollTop > 200) {
+            document.querySelector('.back-to-top').style.display = 'block';
+        } else {
+            document.querySelector('.back-to-top').style.display = 'none';
+        }
     }
 
     // 切换深色模式
