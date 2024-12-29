@@ -63,57 +63,6 @@
             transform: scale(1.05);
         }
 
-        .language-switch {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5em;
-            z-index: 10;
-        }
-
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background-color: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1em;
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            pointer-events: none;
-        }
-
-        .popup.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .popup div {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid transparent;
-            border-radius: 5px;
-        }
-
-        .popup div:hover {
-            border-color: white;
-        }
-
-        .popup span {
-            margin-left: 10px;
-            font-size: 1em;
-        }
-
         .back-to-top {
             position: fixed;
             bottom: 20px;
@@ -165,7 +114,13 @@
 <body>
 
 <div class="container">
-    <div class="language-switch" onclick="togglePopup()">🌐</div>
+    <h1>王廷香你真没师德</h1>
+
+    <!-- 音频播放器 -->
+    <audio controls>
+        <source src="audio/audio_sample.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放功能。
+    </audio>
 
     <!-- 图片网格 -->
     <div class="image-grid">
@@ -173,14 +128,6 @@
         <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg')">
         <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg')">
     </div>
-
-    <h1 id="header-text">王廷香你真没师德</h1>
-
-    <!-- 音频播放器 -->
-    <audio controls>
-        <source src="audio/audio_sample.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放功能。
-    </audio>
 
     <!-- 返回顶部按钮 -->
     <div class="back-to-top" onclick="scrollToTop()">↑</div>
@@ -192,56 +139,11 @@
 <!-- 深色模式按钮旁的注释 -->
 <div class="mode-switch-text">点击按钮切换主题色</div>
 
-<!-- 弹出菜单 -->
-<div class="popup" id="popup">
-    <p style="color: white;">🌎 Select a Language:</p>
-    <div onclick="changeLanguage('zh')">
-        🇨🇳 <span>中文 (Chinese)</span>
-    </div>
-    <div onclick="changeLanguage('ja')">
-        🇯🇵 <span>日本語 (Japanese)</span>
-    </div>
-    <div onclick="changeLanguage('ko')">
-        🇰🇷 <span>한국어 (Korean)</span>
-    </div>
-    <div onclick="changeLanguage('en')">
-        🇺🇸 <span>English</span>
-    </div>
-</div>
-
 <script>
     // 打开大图
     function openImage(src) {
         const imageWindow = window.open(src, '_blank');
         imageWindow.focus();
-    }
-
-    // 切换语言
-    function togglePopup() {
-        const popup = document.getElementById('popup');
-        popup.classList.toggle('show');
-    }
-
-    function changeLanguage(lang) {
-        const headerText = document.getElementById('header-text');
-        const popup = document.getElementById('popup');
-
-        const translations = {
-            en: 'Wang Tingxiang, you really lack teacher ethics',
-            zh: '王廷香你真没师德',
-            ja: '王廷香、本当に教師としての倫理に欠けています',
-            ko: '왕팅샹, 당신은 정말 교사 윤리가 부족합니다',
-        };
-
-        headerText.innerHTML = translations[lang] || translations['en']; // 默认切换为英语
-        localStorage.setItem('lang', lang); // 保存语言选择
-        popup.classList.remove('show');
-    }
-
-    // 加载时检查语言设置
-    window.onload = () => {
-        const savedLang = localStorage.getItem('lang') || 'en';
-        changeLanguage(savedLang);
     }
 
     // 返回顶部
@@ -271,8 +173,6 @@
         if (savedMode === 'dark') {
             document.body.classList.add('dark-mode');
         }
-        const savedLang = localStorage.getItem('lang') || 'en';
-        changeLanguage(savedLang);
     }
 </script>
 
