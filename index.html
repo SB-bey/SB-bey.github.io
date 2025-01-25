@@ -109,25 +109,92 @@
             width: 90%;
         }
 
+        /* 返回按钮样式 */
+        .back-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* 导航按钮样式 */
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev-button {
+            left: 10px;
+        }
+
+        .next-button {
+            right: 10px;
+        }
+
+        /* 大图样式 */
+        .full-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 50px;
+        }
+
+        /* 计数器样式 */
+        .click-counter {
+            position: fixed;
+            bottom: 60px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .click-counter.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>王廷香没师德
-
-    <!-- 音频播放器 -->
-    <audio controls>
-        <source src="audio/audio_sample.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放功能。
-    </audio>
 
     <!-- 图片网格 -->
     <div class="image-grid">
-        <img src="images/photo1.jpg" alt="照片1" onclick="openImage('images/photo1.jpg')">
-        <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg')">
-        <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg')">
+        <img src="images/photo1.jpg" alt="照片1" onclick="openImage('images/photo1.jpg', 0)">
+        <img src="images/photo2.jpg" alt="照片2" onclick="openImage('images/photo2.jpg', 1)">
+        <img src="images/photo3.jpg" alt="照片3" onclick="openImage('images/photo3.jpg', 2)">
     </div>
+
+    <h1 id="header-text">王廷香你真没师德</h1>
+
+    <!-- 音频播放器 -->
+    <audio id="audio-player" controls>
+        <source src="audio/audio_sample.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放功能。
+    </audio>
 
     <!-- 返回顶部按钮 -->
     <div class="back-to-top" onclick="scrollToTop()">↑</div>
@@ -139,10 +206,104 @@
 <!-- 深色模式按钮旁的注释 -->
 <div class="mode-switch-text">点击按钮切换主题色</div>
 
+<!-- 计数器 -->
+<div class="click-counter" id="click-counter"></div>
+
 <script>
+    const images = [
+        { src: 'images/photo1.jpg', alt: '照片1' },
+        { src: 'images/photo2.jpg', alt: '照片2' },
+        { src: 'images/photo3.jpg', alt: '照片3' }
+    ];
+
+    let clickCount = 0;
+    let counterTimeout;
+
     // 打开大图
-    function openImage(src) {
-        const imageWindow = window.open(src, '_blank');
+    function openImage(src, index) {
+        const imageWindow = window.open('', '_blank', 'width=800,height=600');
+        imageWindow.document.write(`
+            <!DOCTYPE html>
+            <html lang="zh">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>大图查看</title>
+                <style>
+                    body {
+                        font-family: '等线', sans-serif;
+                        text-align: center;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f8f8f8;
+                    }
+
+                    .back-button {
+                        position: fixed;
+                        top: 10px;
+                        left: 10px;
+                        background-color: rgba(0, 0, 0, 0.6);
+                        color: white;
+                        padding: 10px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        z-index: 1000;
+                    }
+
+                    .back-button:hover {
+                        background-color: rgba(0, 0, 0, 0.8);
+                    }
+
+                    .nav-button {
+                        position: fixed;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background-color: rgba(0, 0, 0, 0.6);
+                        color: white;
+                        padding: 10px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        z-index: 1000;
+                    }
+
+                    .nav-button:hover {
+                        background-color: rgba(0, 0, 0, 0.8);
+                    }
+
+                    .prev-button {
+                        left: 10px;
+                    }
+
+                    .next-button {
+                        right: 10px;
+                    }
+
+                    .full-image {
+                        max-width: 100%;
+                        height: auto;
+                        margin-top: 50px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="back-button" onclick="window.close()">×</div>
+                <img src="${src}" alt="${images[index].alt}" class="full-image">
+                <div class="nav-button prev-button" onclick="changeImage(${index}, -1)">←</div>
+                <div class="nav-button next-button" onclick="changeImage(${index}, 1)">→</div>
+                <script>
+                    const images = ${JSON.stringify(images)};
+                    let currentIndex = ${index};
+
+                    function changeImage(currentIndex, direction) {
+                        currentIndex = (currentIndex + direction + images.length) % images.length;
+                        document.querySelector('.full-image').src = images[currentIndex].src;
+                        document.querySelector('.full-image').alt = images[currentIndex].alt;
+                    }
+                <\/script>
+            </body>
+            </html>
+        `);
+        imageWindow.document.close();
         imageWindow.focus();
     }
 
@@ -165,6 +326,29 @@
         document.body.classList.toggle('dark-mode');
         const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('mode', currentMode); // 保存模式设置
+
+        // 增加点击计数
+        clickCount++;
+        if (clickCount >= 5) {
+            const counter = document.getElementById('click-counter');
+            counter.innerText = `点击次数: ${clickCount}`;
+            counter.classList.add('visible');
+
+            // 清除之前的定时器
+            clearTimeout(counterTimeout);
+
+            // 设置新的定时器
+            counterTimeout = setTimeout(() => {
+                counter.classList.remove('visible');
+            }, 5000);
+        }
+
+        // 检查是否达到33次
+        if (clickCount === 33) {
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.src = 'audio/2.mp3';
+            audioPlayer.play();
+        }
     }
 
     // 加载时检查深色模式设置
