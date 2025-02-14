@@ -98,6 +98,32 @@
             font-size: 14px;
             color: #555;
         }
+/* 图片网格样式 */
+.image-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px; /* 控制图片间距 */
+    padding: 20px;
+}
+
+.image-grid img {
+    width: calc(33.333% - 10px); /* 三等分布局，留点间距 */
+    max-width: 250px; /* 限制最大宽度 */
+    height: auto; /* 保持原始比例 */
+    border-radius: 10px; /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 轻微阴影 */
+    transition: transform 0.3s ease;
+}
+
+.image-grid img:hover {
+    transform: scale(1.05); /* 悬浮放大一点点 */
+}
+
+/* 深色模式下优化图片亮度 */
+body.dark-mode .image-grid img {
+    filter: brightness(0.8);
+}
 
     </style>
 </head>
