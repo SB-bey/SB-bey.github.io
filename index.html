@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>“王廷香你没师德”全球曝光站 🌍🔥</title>
+    <title>王廷香曝光站 | 震撼实录🔥</title>
+    <meta name="description" content="🔥 王廷香震撼实录 | 🌍 No Morals: The 王廷香 Files | ⚖️ 师德拷问现场 | 🕵️ 真相曝光：王廷香档案 | 👁️ 王廷香 • 你逃不掉的记录">
     <style>
         body {
             font-family: '等线', sans-serif;
@@ -39,7 +40,6 @@
             margin: 20px auto;
         }
 
-        /* 金句部分 */
         .quotes-container {
             margin: 50px auto;
             padding: 20px;
@@ -56,7 +56,6 @@
             color: white;
         }
 
-        /* 按钮样式 */
         .quote-button {
             background-color: #ff6600;
             color: white;
@@ -73,7 +72,6 @@
             background-color: #cc5500;
         }
 
-        /* 切换主题色按钮 */
         .mode-switch {
             position: fixed;
             bottom: 20px;
@@ -98,33 +96,31 @@
             font-size: 14px;
             color: #555;
         }
-/* 图片网格样式 */
-.image-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px; /* 控制图片间距 */
-    padding: 20px;
-}
 
-.image-grid img {
-    width: calc(33.333% - 10px); /* 三等分布局，留点间距 */
-    max-width: 250px; /* 限制最大宽度 */
-    height: auto; /* 保持原始比例 */
-    border-radius: 10px; /* 圆角 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 轻微阴影 */
-    transition: transform 0.3s ease;
-}
+        .image-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+        }
 
-.image-grid img:hover {
-    transform: scale(1.05); /* 悬浮放大一点点 */
-}
+        .image-grid img {
+            width: calc(33.333% - 10px);
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
 
-/* 深色模式下优化图片亮度 */
-body.dark-mode .image-grid img {
-    filter: brightness(0.8);
-}
+        .image-grid img:hover {
+            transform: scale(1.05);
+        }
 
+        body.dark-mode .image-grid img {
+            filter: brightness(0.8);
+        }
     </style>
 </head>
 <body>
@@ -132,27 +128,23 @@ body.dark-mode .image-grid img {
 <div class="container">
     <h1 id="header-text">“王廷香你没师德”全球曝光站 🌍🔥</h1>
 
-    <!-- 图片网格 -->
     <div class="image-grid">
         <img src="images/photo1.jpg" alt="照片1">
         <img src="images/photo4.jpg.jpg" alt="照片2">
         <img src="images/photo3.jpg" alt="照片3">
     </div>
 
-    <!-- 音频播放器 -->
     <audio id="audio-player" controls>
         <source src="audio/audio_sample.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放功能。
     </audio>
 
-    <!-- 金句区域 -->
     <div class="quotes-container">
         <h2>金句精选✨</h2>
         <p id="quote-text">点击按钮看看今天的金句吧！</p>
         <button class="quote-button" onclick="showRandomQuote()">🎯 抽取金句</button>
     </div>
 
-    <!-- 切换深色模式按钮 -->
     <div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
     <div class="mode-switch-text"></div>
 </div>
@@ -177,14 +169,12 @@ body.dark-mode .image-grid img {
         document.getElementById("quote-text").innerText = quotes[randomIndex];
     }
 
-    // 切换深色模式
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
         const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('mode', currentMode);
     }
 
-    // 加载时检查深色模式设置
     window.onload = () => {
         const savedMode = localStorage.getItem('mode') || 'light';
         if (savedMode === 'dark') {
