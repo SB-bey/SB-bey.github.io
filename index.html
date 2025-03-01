@@ -16,7 +16,6 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* 深色模式样式 */
         body.dark-mode {
             background-color: #121212;
             color: #ffffff;
@@ -118,11 +117,11 @@
 <body>
 
 <div class="container">
-    <h1 id="header-text">“王廷香曝光站 | 震撼实录 🌍🔥</h1>
+    <h1 id="header-text">王廷香曝光站 | 震撼实录 🌍🔥</h1>
 
     <div class="image-grid">
         <img src="images/photo1.jpg" alt="照片1">
-        <img src="images/photo4.jpg.jpg" alt="照片2">
+        <img src="images/photo2.jpg" alt="照片2">
         <img src="images/photo3.jpg" alt="照片3">
     </div>
 
@@ -186,28 +185,10 @@
         reader.onload = async function () {
             const content = btoa(String.fromCharCode(...new Uint8Array(reader.result))); // 转 Base64
             const filename = file.name;
-            
-            const token = "你的 GitHub Token";  // 这里填你的 GitHub Token
-            const repo = "你的用户名/你的仓库名";
-            const branch = "main"; // 上传到 main 分支
 
-            const res = await fetch(`https://api.github.com/repos/${repo}/contents/submissions/${filename}`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `token ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    message: `收到投稿: ${filename}`,
-                    content
-                })
-            });
+            const issueBody = `**文件名称：** ${filename}\n\n📂 **内容（Base64 编码）：**\n\`\`\`\n${content}\n\`\`\``;
 
-            if (res.ok) {
-                document.getElementById("uploadStatus").innerText = "✅ 投稿成功！";
-            } else {
-                document.getElementById("uploadStatus").innerText = "❌ 投稿失败！";
-            }
+            window.open(`https://github.com/sb-bey/sb-bey.github.io/issues/new?title=投稿: ${filename}&body=${encodeURIComponent(issueBody)}`);
         };
     }
 
