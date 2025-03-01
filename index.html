@@ -89,14 +89,6 @@
             background: #666;
         }
 
-        .mode-switch-text {
-            position: fixed;
-            bottom: 60px;
-            left: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-
         .image-grid {
             display: flex;
             justify-content: center;
@@ -145,8 +137,14 @@
         <button class="quote-button" onclick="showRandomQuote()">🎯 抽取金句</button>
     </div>
 
+    <div class="quotes-container">
+        <h2>投稿中心📩</h2>
+        <input type="file" id="fileInput">
+        <button class="quote-button" onclick="submitPost()">提交投稿</button>
+        <p id="uploadStatus"></p>
+    </div>
+
     <div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
-    <div class="mode-switch-text"></div>
 </div>
 
 <script>
@@ -173,6 +171,44 @@
         document.body.classList.toggle('dark-mode');
         const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('mode', currentMode);
+    }
+
+    async function submitPost() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("请先选择文件！");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = async function () {
+            const content = btoa(String.fromCharCode(...new Uint8Array(reader.result))); // 转 Base64
+            const filename = file.name;
+            
+            const token = "你的 GitHub Token";  // 这里填你的 GitHub Token
+            const repo = "你的用户名/你的仓库名";
+            const branch = "main"; // 上传到 main 分支
+
+            const res = await fetch(`https://api.github.com/repos/${repo}/contents/submissions/${filename}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: `收到投稿: ${filename}`,
+                    content
+                })
+            });
+
+            if (res.ok) {
+                document.getElementById("uploadStatus").innerText = "✅ 投稿成功！";
+            } else {
+                document.getElementById("uploadStatus").innerText = "❌ 投稿失败！";
+            }
+        };
     }
 
     window.onload = () => {
