@@ -16,6 +16,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* 深色模式样式 */
         body.dark-mode {
             background-color: #121212;
             color: #ffffff;
@@ -88,6 +89,14 @@
             background: #666;
         }
 
+        .mode-switch-text {
+            position: fixed;
+            bottom: 60px;
+            left: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
         .image-grid {
             display: flex;
             justify-content: center;
@@ -117,11 +126,11 @@
 <body>
 
 <div class="container">
-    <h1 id="header-text">王廷香曝光站 | 震撼实录 🌍🔥</h1>
+    <h1 id="header-text">“王廷香曝光站 | 震撼实录 🌍🔥</h1>
 
     <div class="image-grid">
         <img src="images/photo1.jpg" alt="照片1">
-        <img src="images/photo2.jpg" alt="照片2">
+        <img src="images/photo4.jpg.jpg" alt="照片2">
         <img src="images/photo3.jpg" alt="照片3">
     </div>
 
@@ -136,14 +145,8 @@
         <button class="quote-button" onclick="showRandomQuote()">🎯 抽取金句</button>
     </div>
 
-    <div class="quotes-container">
-        <h2>投稿中心📩</h2>
-        <input type="file" id="fileInput">
-        <button class="quote-button" onclick="submitPost()">提交投稿</button>
-        <p id="uploadStatus"></p>
-    </div>
-
     <div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
+    <div class="mode-switch-text"></div>
 </div>
 
 <script>
@@ -170,26 +173,6 @@
         document.body.classList.toggle('dark-mode');
         const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('mode', currentMode);
-    }
-
-    async function submitPost() {
-        const fileInput = document.getElementById("fileInput");
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("请先选择文件！");
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = async function () {
-            const content = btoa(String.fromCharCode(...new Uint8Array(reader.result))); // 转 Base64
-            const filename = file.name;
-
-            const issueBody = `**文件名称：** ${filename}\n\n📂 **内容（Base64 编码）：**\n\`\`\`\n${content}\n\`\`\``;
-
-            window.open(`https://github.com/sb-bey/sb-bey.github.io/issues/new?title=投稿: ${filename}&body=${encodeURIComponent(issueBody)}`);
-        };
     }
 
     window.onload = () => {
