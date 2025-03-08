@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -7,14 +7,14 @@
     <meta name="description" content="👁️ 王廷香 • 你逃不掉的记录">
     <style>
         body {
-            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
             background: #f5f5f7;
             color: #1d1d1f;
             font-size: 16px;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.15s ease-in-out;
         }
 
         body.dark-mode {
@@ -26,7 +26,7 @@
             font-size: 2em;
             font-weight: 600;
             margin-top: 20px;
-            transition: color 0.3s ease;
+            transition: color 0.15s ease;
         }
 
         .container {
@@ -36,16 +36,17 @@
         }
 
         .card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(15px);
             border-radius: 16px;
             padding: 24px;
             margin: 20px 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.15s ease;
         }
 
         body.dark-mode .card {
-            background: #222;
+            background: rgba(34, 34, 34, 0.75);
         }
 
         .image-grid {
@@ -58,7 +59,7 @@
         .image-grid img {
             width: 30%;
             border-radius: 12px;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.15s ease-in-out;
         }
 
         .image-grid img:hover {
@@ -75,7 +76,7 @@
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.15s ease;
         }
 
         .button:hover {
@@ -88,18 +89,19 @@
             left: 20px;
             width: 48px;
             height: 48px;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: background 0.15s ease, transform 0.2s ease;
         }
 
         .mode-switch:hover {
-            background: #f0f0f0;
+            background: rgba(255, 255, 255, 1);
             transform: scale(1.1);
         }
     </style>
@@ -111,7 +113,7 @@
 
     <div class="image-grid">
         <img src="images/photo1.jpg" alt="📸 照片1">
-        <img src="images/photo2.jpg" alt="📸 照片2">
+        <img src="images/photo4.jpg.jpg" alt="📸 照片2">
         <img src="images/photo3.jpg" alt="📸 照片3">
     </div>
 
@@ -121,11 +123,19 @@
         <button class="button" onclick="showRandomQuote()">🎯🖕 抽取金句</button>
     </div>
 
+    <div class="card">
+        <h2>🎵 原声大碟 🎵</h2>
+        <audio controls>
+            <source src="audio/audio_sample.mp3" type="audio/mpeg">
+            你的破浏览器破到不支持音频播放🙄。
+        </audio>
+    </div>
+
     <div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
 </div>
 
 <script>
-    var quotes = [
+    const quotes = [
         "💀 你的内心会受到折磨的。",
         "👀 人在做，天在看。",
         "🤨 你有什么资本？",
@@ -140,45 +150,21 @@
     ];
 
     function showRandomQuote() {
-        var randomIndex = Math.floor(Math.random() * quotes.length);
+        const randomIndex = Math.floor(Math.random() * quotes.length);
         document.getElementById("quote-text").innerText = quotes[randomIndex];
     }
 
-    function setCookie(name, value, days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + date.toUTCString();
-        document.cookie = name + "=" + value + ";" + expires + ";path=/";
-    }
-
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-
     function toggleDarkMode() {
-        var body = document.body;
-        if (body.classList.contains('dark-mode')) {
-            body.classList.remove('dark-mode');
-            setCookie('mode', 'light', 7);
-        } else {
-            body.classList.add('dark-mode');
-            setCookie('mode', 'dark', 7);
-        }
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('mode', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
     }
 
-    window.onload = function () {
-        if (getCookie('mode') === 'dark') {
+    window.onload = () => {
+        if (localStorage.getItem('mode') === 'dark') {
             document.body.classList.add('dark-mode');
         }
     }
 </script>
 
 </body>
-</html>
+</html>l>
