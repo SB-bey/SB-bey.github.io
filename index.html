@@ -7,7 +7,7 @@
     <meta name="description" content="👁️ 王廷香 • 你逃不掉的记录">
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
@@ -36,8 +36,7 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(15px);
+            background: #ffffff;
             border-radius: 16px;
             padding: 24px;
             margin: 20px 0;
@@ -46,7 +45,7 @@
         }
 
         body.dark-mode .card {
-            background: rgba(34, 34, 34, 0.75);
+            background: #222;
         }
 
         .image-grid {
@@ -89,8 +88,7 @@
             left: 20px;
             width: 48px;
             height: 48px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -101,7 +99,7 @@
         }
 
         .mode-switch:hover {
-            background: rgba(255, 255, 255, 1);
+            background: #f0f0f0;
             transform: scale(1.1);
         }
     </style>
@@ -113,7 +111,7 @@
 
     <div class="image-grid">
         <img src="images/photo1.jpg" alt="📸 照片1">
-        <img src="images/photo4.jpg.jpg" alt="📸 照片2">
+        <img src="images/photo2.jpg" alt="📸 照片2">
         <img src="images/photo3.jpg" alt="📸 照片3">
     </div>
 
@@ -127,7 +125,7 @@
 </div>
 
 <script>
-    const quotes = [
+    var quotes = [
         "💀 你的内心会受到折磨的。",
         "👀 人在做，天在看。",
         "🤨 你有什么资本？",
@@ -142,17 +140,41 @@
     ];
 
     function showRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
+        var randomIndex = Math.floor(Math.random() * quotes.length);
         document.getElementById("quote-text").innerText = quotes[randomIndex];
     }
 
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('mode', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    function setCookie(name, value, days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
 
-    window.onload = () => {
-        if (localStorage.getItem('mode') === 'dark') {
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function toggleDarkMode() {
+        var body = document.body;
+        if (body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+            setCookie('mode', 'light', 7);
+        } else {
+            body.classList.add('dark-mode');
+            setCookie('mode', 'dark', 7);
+        }
+    }
+
+    window.onload = function () {
+        if (getCookie('mode') === 'dark') {
             document.body.classList.add('dark-mode');
         }
     }
