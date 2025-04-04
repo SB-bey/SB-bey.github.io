@@ -1,181 +1,270 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥王廷香曝光站🔥 | 
-😭震撼实录🌍 </title>
-    <meta name="description" content="👁️ 王廷香 • 你逃不掉的记录">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background: #f5f5f7;
-            color: #1d1d1f;
-            font-size: 16px;
-            transition: all 0.15s ease-in-out;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥王廷香曝光站🔥 | 😭震撼实录🌍</title>
+  <meta name="description" content="👁️ 王廷香 • 你逃不掉的记录" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-size: 16px;
+      transition: all 0.15s ease-in-out;
+    }
 
-        body.dark-mode {
-            background: #1d1d1f;
-            color: #f5f5f7;
-        }
+    body.dark-mode {
+      background: #1d1d1f;
+      color: #f5f5f7;
+    }
 
-        h1 {
-            font-size: 2em;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: color 0.15s ease;
-        }
+    h1 {
+      font-size: 2em;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: color 0.15s ease;
+    }
 
-        .container {
-            max-width: 780px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+    .container {
+      max-width: 780px;
+      margin: 40px auto;
+      padding: 20px;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(15px);
-            border-radius: 16px;
-            padding: 24px;
-            margin: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.15s ease;
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.15s ease;
+    }
 
-        body.dark-mode .card {
-            background: rgba(34, 34, 34, 0.75);
-        }
+    body.dark-mode .card {
+      background: rgba(34, 34, 34, 0.75);
+    }
 
-        .image-grid {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            padding: 10px;
-        }
+    .image-grid {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px;
+    }
 
-        .image-grid img {
-            width: 30%;
-            border-radius: 12px;
-            transition: transform 0.15s ease-in-out;
-        }
+    .image-grid img {
+      width: 30%;
+      border-radius: 12px;
+      transition: transform 0.15s ease-in-out;
+    }
 
-        .image-grid img:hover {
-            transform: scale(1.04);
-        }
+    .image-grid img:hover {
+      transform: scale(1.04);
+    }
 
-        .button {
-            display: inline-block;
-            background: #007aff;
-            color: #fff;
-            border-radius: 22px;
-            padding: 12px 20px;
-            font-size: 15px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: background 0.15s ease;
-        }
+    .button {
+      display: inline-block;
+      background: #007aff;
+      color: #fff;
+      border-radius: 22px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease, box-shadow 0.15s ease;
+      outline: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-        .button:hover {
-            background: #005ecb;
-        }
+    .button:hover {
+      background: #005ecb;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
 
-        .mode-switch {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            transition: background 0.15s ease, transform 0.2s ease;
-        }
+    .button:focus,
+    .button:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
 
-        .mode-switch:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: scale(1.1);
-        }
-    </style>
+    .mode-switch {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.2s ease, color 0.2s ease;
+      color: #111;
+      border: none;
+      outline: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .mode-switch:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: scale(1.1);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark-mode .mode-switch {
+      background: rgba(34, 34, 34, 0.8);
+      color: #f5f5f7;
+    }
+
+    .custom-audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      justify-content: center;
+    }
+
+    .custom-audio-controls button {
+      font-size: 20px;
+      background: #007aff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 6px 12px;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-audio-controls input[type="range"] {
+      width: 60%;
+      height: 6px;
+      cursor: pointer;
+    }
+
+    /* === 必要新增：强制h2不换行 === */
+    h2 {
+      white-space: nowrap;
+    }
+
+    /* === 新增：逗号处换行 === */
+    .quote-text {
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🔥王廷香曝光站🔥 | 
-😭震撼实录🌍</h1>
+  <div class="container">
+    <h1>🔥王廷香曝光站🔥<br>😭震撼实录🌍</h1>
 
     <div class="image-grid">
-        <img src="images/photo1.jpg" alt="📸 照片1">
-        <img src="images/photo4.jpg.jpg" alt="📸 照片2">
-        <img src="images/photo3.jpg" alt="📸 照片3">
+      <img src="images/photo1.jpg" alt="🧔‍♀️ 照片1" />
+      <img src="images/photo4.jpg.jpg" alt="🧔‍♀️ 照片2" />
+      <img src="images/photo3.jpg" alt="🧔‍♀️ 照片3" />
     </div>
 
     <div class="card">
-        <h2>✨ 金句精选 ✨</h2>
-        <p id="quote-text">🖕点击按钮看看今天的金句吧！</p>
-        <button class="button" onclick="showRandomQuote()">🎯🖕 抽取金句</button>
+      <h2>✨ 王廷香金句良言抽取 ✨</h2>
+      <p id="quote-text">🖕点击按钮抽取金句吧🖕</p>
+      <button class="button" onclick="showRandomQuote()">开🎯🖕抽</button>
     </div>
 
     <div class="card">
-        <h2>🎵 原声大碟 🎵</h2>
-        <audio controls>
-            <source src="audio/audio_sample.mp3" type="audio/mpeg">
-            你的破浏览器破到不支持音频播放🙄。
-        </audio>
+      <h2 class="quote-text">「此曲只应天上有，<br>人间能得几回闻。」</h2>
+      <audio id="custom-audio">
+        <source src="audio/audio_sample.mp3" type="audio/mpeg" />
+        你的破浏览器破到不支持音频播放🙄。
+      </audio>
+      <div class="custom-audio-controls">
+        <button id="play-pause">🥵</button>
+        <input type="range" id="seek-bar" value="0">
+      </div>
     </div>
 
-    <div class="mode-switch" onclick="toggleDarkMode()">🌙</div>
-</div>
+    <div class="mode-switch" onclick="toggleDarkMode()">
+      <span id="mode-icon">🥵</span>
+    </div>
+  </div>
 
-<div style="text-align: center; margin: 20px 0;">
+  <div style="text-align: center; margin: 20px 0;">
     <a href="https://github.com/SB-bey/SB-bey.github.io/releases/download/%E7%8E%8B%E5%BB%B7%E9%A6%99%E5%90%8E%E6%8F%B4%E9%80%9A/wtx.apk" 
        target="_blank"
        style="color: #007aff; font-size: 14px; text-decoration: none;">
-       📥 下载王廷香后援通程序
+       🦵 下崽王廷香后援通安卓安装包🫴
     </a>
-</div>
+  </div>
 
-<script>
+  <script>
     const quotes = [
-        "💀 你的内心会受到折磨的。",
-        "👀 人在做，天在看。",
-        "🤨 你有什么资本？",
-        "⚖️ 公道自在人心。",
-        "🧐 你前后不像。",
-        "🙃 你是没改变。",
-        "👁️ 视觉う染。",
-        "😠 你为什么总是不尊重别人？你为什么总是挑战别人的极限？",
-        "🚫 你不要沉浸在你自己的世界里面。",
-        "🖕 点到为止。",
-        "👂 耳闻目染。",
+      "💀 你的内心会受到折磨的。",
+      "👀 人在做，天在看。",
+      "🤨 你有什么资本？",
+      "⚖️ 公道自在人心。",
+      "🧐 你前后不像。",
+      "🙃 你是没改变。",
+      "👁️ 视觉う染。",
+      "😠 你为什么总是不尊重别人？你为什么总是挑战别人的极限？",
+      "🚫 你不要沉浸在你自己的世界里面。",
+      "🖕 点到为止。",
+      "👂 耳闻目染。",
     ];
 
     function showRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        document.getElementById("quote-text").innerText = quotes[randomIndex];
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      document.getElementById("quote-text").innerText = quotes[randomIndex];
     }
 
     function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('mode', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('mode', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+      
+      const icon = document.getElementById("mode-icon");
+      icon.textContent = '🫥';
+      setTimeout(() => {
+        icon.textContent = document.body.classList.contains('dark-mode') ? '🥶' : '🥵';
+      }, 250);
     }
 
     window.onload = () => {
-        if (localStorage.getItem('mode') === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-    }
-</script>
+      if (localStorage.getItem('mode') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById("mode-icon").textContent = '🥶';
+      }
+    };
+
+    const audio = document.getElementById("custom-audio");
+    const playPauseBtn = document.getElementById("play-pause");
+    const seekBar = document.getElementById("seek-bar");
+
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = "😭";
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "🥵";
+      }
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      const value = (audio.currentTime / audio.duration) * 100;
+      seekBar.value = value;
+    });
+
+    seekBar.addEventListener("input", () => {
+      const time = (seekBar.value / 100) * audio.duration;
+      audio.currentTime = time;
+    });
+  </script>
 
 </body>
 </html>
