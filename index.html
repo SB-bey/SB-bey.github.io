@@ -205,17 +205,21 @@
       </div>
     </div>
 
+    <div class="card">
+      <h2>🧠 今日王廷香精神占卜🌀</h2>
+      <button class="button" onclick="showMentalState()">点击看看今天她发疯到啥程度💥</button>
+      <p id="mental-state">状态未知🤡</p>
+    </div>
+
+    <div class="card">
+      <h2>🕰️ 王廷香古今时间旅行</h2>
+      <button class="button" onclick="startTimeTravel()">启动时间旅行</button>
+      <p id="time-travel-event">点击按钮开始香的历史奇旅🕳️</p>
+    </div>
+
     <div class="mode-switch" onclick="toggleDarkMode()">
       <span id="mode-icon">🥵</span>
     </div>
-  </div>
-
-  <div style="text-align: center; margin: 20px 0;">
-    <a href="https://github.com/SB-bey/SB-bey.github.io/releases/download/%E7%8E%8B%E5%BB%B7%E9%A6%99%E5%90%8E%E6%8F%B4%E9%80%9A/wtx.apk" 
-       target="_blank"
-       style="color: #007aff; font-size: 14px; text-decoration: none;">
-       🦵 下崽王廷香后援通安卓安装包🫴
-    </a>
   </div>
 
   <script>
@@ -236,6 +240,9 @@
     function showRandomQuote() {
       const randomIndex = Math.floor(Math.random() * quotes.length);
       document.getElementById("quote-text").innerText = quotes[randomIndex];
+      if (navigator.vibrate) {
+        navigator.vibrate(200); // 震动效果
+      }
     }
 
     function toggleDarkMode() {
@@ -271,80 +278,60 @@
     });
 
     audio.addEventListener("timeupdate", () => {
-      const value = (audio.currentTime / audio.duration) * 100;
-      seekBar.value = value;
+      seekBar.value = (audio.currentTime / audio.duration) * 100;
     });
 
     seekBar.addEventListener("input", () => {
-      const time = (seekBar.value / 100) * audio.duration;
-      audio.currentTime = time;
+      audio.currentTime = (seekBar.value / 100) * audio.duration;
     });
 
-    // 愤怒值逻辑
-    const angerChartCanvas = document.getElementById('angerChart');
-    const angerChartCtx = angerChartCanvas.getContext('2d');
-    let angerData = [];
-    let timeLabels = [];
+    function startTimeTravel() {
+      const events = [
+        "220年：王廷香开始驾驭未来的神秘力量。",
+        "380年：她在王宫里劫走了金库的所有戒尺。",
+        "2014年：她成为了一个充满争议的社交媒体巨星。",
+        "2077年：她掌控了全世界的学生！",
+        "未知：她带领了人类使用打制石器教育学生！",
+      ];
+      const randomEvent = events[Math.floor(Math.random() * events.length)];
+      document.getElementById("time-travel-event").innerText = randomEvent;
+    }
 
-    const angerChart = new Chart(angerChartCtx, {
-      type: 'line',
+    function showMentalState() {
+      const mentalStates = [
+        "💥 今日暴力爆发：愤怒值99！",
+        "💨 心态极度不稳定，情绪起伏如过山车。",
+        "🌪️ 环境压力加大，精神崩溃，快跑！",
+        "🧠 内心恍惚，接近丧失理智！",
+        "🔮 精神异能觉醒，自拍发了朋友圈",
+        "🚽研学时上厕所小蜜蜂掉屎里面了💩"
+        ,
+      ];
+      const randomState = mentalStates[Math.floor(Math.random() * mentalStates.length)];
+      document.getElementById("mental-state").innerText = randomState;
+    }
+
+    const ctx = document.getElementById("angerChart").getContext("2d");
+    const angerChart = new Chart(ctx, {
+      type: "line",
       data: {
-        labels: timeLabels,
+        labels: ['T-5', 'T-4', 'T-3', 'T-2', 'T-1', 'T0'],
         datasets: [{
-          label: '王廷香的愤怒值',
-          data: angerData,
+          label: '愤怒值',
+          data: [1, 2, 3, 4, 5, 5],
+          fill: false,
           borderColor: 'rgba(255, 99, 132, 1)',
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          fill: true,
-          tension: 0.2
-        }]
+          tension: 0.1,
+        }],
       },
       options: {
-        responsive: true,
         scales: {
           y: {
             beginAtZero: true,
-            max: 100
-          }
-        }
-      }
+          },
+        },
+      },
     });
-
-    function getAngerValue() {
-      return Math.random() < 0.7 ? Math.floor(Math.random() * 20 + 80) : Math.floor(Math.random() * 80);
-    }
-
-    function updateAngerStatus() {
-      const angerValueElement = document.getElementById('anger-value');
-      const emojiElement = document.getElementById('emoji');
-      const now = new Date();
-      const hour = now.getHours();
-      const minute = now.getMinutes();
-
-      if (hour >= 23 || (hour < 2 && minute < 30)) {
-        angerValueElement.textContent = "王廷香在睡觉暂不生气";
-        emojiElement.textContent = "😴";
-        angerData.push(0);
-      } else {
-        const angerValue = getAngerValue();
-        angerValueElement.textContent = `王廷香目前愤怒值：${angerValue}`;
-        emojiElement.textContent = angerValue > 80 ? "😡" : "😌";
-        angerData.push(angerValue);
-      }
-
-      timeLabels.push(now.toLocaleTimeString());
-
-      if (angerData.length > 10) {
-        angerData.shift();
-        timeLabels.shift();
-      }
-
-      angerChart.update();
-    }
-
-    updateAngerStatus();
-    setInterval(updateAngerStatus, 60000);
   </script>
-
 </body>
 </html>
