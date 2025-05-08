@@ -12,15 +12,15 @@
       text-align: center;
       margin: 0;
       padding: 0;
-      background: f5f5f7;
-      color: 1d1d1f;
+      background: #f5f5f7;
+      color: #1d1d1f;
       font-size: 16px;
       transition: all 0.15s ease-in-out;
     }
 
     body.dark-mode {
-      background: 1d1d1f;
-      color: f5f5f7;
+      background: #1d1d1f;
+      color: #f5f5f7;
     }
 
     h1 {
@@ -69,8 +69,8 @@
 
     .button {
       display: inline-block;
-      background: 007aff;
-      color: fff;
+      background: #007aff;
+      color: #fff;
       border-radius: 22px;
       padding: 12px 20px;
       font-size: 15px;
@@ -83,7 +83,7 @@
     }
 
     .button:hover {
-      background: 005ecb;
+      background: #005ecb;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
     }
 
@@ -102,7 +102,7 @@
       font-size: 20px;
       cursor: pointer;
       transition: background 0.15s ease, transform 0.2s ease, color 0.2s ease;
-      color: 111;
+      color: #111;
       border: none;
       outline: none;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -115,7 +115,7 @@
 
     body.dark-mode .mode-switch {
       background: rgba(34, 34, 34, 0.8);
-      color: f5f5f7;
+      color: #f5f5f7;
     }
 
     .custom-audio-controls {
@@ -128,8 +128,8 @@
 
     .custom-audio-controls button {
       font-size: 20px;
-      background: 007aff;
-      border: 2px solid 005ecb; /* 添加边框 */
+      background: #007aff;
+      border: 2px solid #005ecb; /* 添加边框 */
       border-radius: 8px;
       color: white;
       padding: 6px 12px;
@@ -139,10 +139,10 @@
     }
 
     .custom-audio-controls button:hover {
-      border-color: 003f8c; /* 鼠标悬停时改变边框颜色 */
+      border-color: #003f8c; /* 鼠标悬停时改变边框颜色 */
     }
 
-    .custom-audio-controls inputtype="range" {
+    .custom-audio-controls input[type="range"] {
       width: 60%;
       height: 6px;
       cursor: pointer;
@@ -156,12 +156,12 @@
       white-space: pre-wrap;
     }
 
-    anger-value {
+    #anger-value {
       font-size: 22px;
       margin-top: 10px;
     }
 
-    emoji {
+    #emoji {
       font-size: 48px;
       margin: 10px 0;
     }
@@ -214,7 +214,7 @@
   </div>
 
   <script>
-    const quotes = 
+    const quotes = [
       "💀 你的内心会受到折磨的。",
       "👀 人在做，天在看。",
       "🤨 你有什么资本？",
@@ -226,11 +226,11 @@
       "🚫 你不要沉浸在你自己的世界里面。",
       "🖕 点到为止。",
       "👂 耳闻目染。",
-    ;
+    ];
 
     function showRandomQuote() {
       const randomIndex = Math.floor(Math.random() * quotes.length);
-      document.getElementById("quote-text").innerText = quotesrandomIndex;
+      document.getElementById("quote-text").innerText = quotes[randomIndex];
       if (navigator.vibrate) {
         navigator.vibrate(78); // 震动效果
       }
@@ -278,5 +278,3 @@
   </script>
 </body>
 </html>
-
-注释难写死了
