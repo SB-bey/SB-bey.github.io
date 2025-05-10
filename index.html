@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🔥王廷香曝光站🔥 | 😭震撼实录🌍</title>
   <meta name="description" content="👁️ 王廷香 • 你逃不掉的记录" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Noto Sans SC', sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
@@ -174,6 +173,7 @@
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>🔥王廷香曝光站🔥<br>😭震撼实录🌍</h1>
 
@@ -213,7 +213,13 @@
     </div>
   </div>
 
+  <div id="long-legs-container" style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:60px;">
+    <img id="infinite-img" src="无限长.png" alt="无限长猫" style="display:block;width:100%;max-width:600px;height:auto;margin:0;padding:0;" />
+    <canvas id="infinite-canvas" style="display:block;width:100%;max-width:600px;margin:0;padding:0;"></canvas>
+  </div>
+
   <script>
+    // 简体版金句
     const quotes = [
       "💀 你的内心会受到折磨的。",
       "👀 人在做，天在看。",
@@ -232,7 +238,7 @@
       const randomIndex = Math.floor(Math.random() * quotes.length);
       document.getElementById("quote-text").innerText = quotes[randomIndex];
       if (navigator.vibrate) {
-        navigator.vibrate(78); // 震动效果
+        navigator.vibrate(125); // 震动效果
       }
     }
 
@@ -250,7 +256,7 @@
     window.onload = () => {
       if (localStorage.getItem('mode') === 'dark') {
         document.body.classList.add('dark-mode');
-        document.getElementById("mode-icon").textContent = '🥶';
+        document.getElementById("mode-icon").textContent = '🫥';
       }
     };
 
@@ -275,6 +281,55 @@
     seekBar.addEventListener("input", () => {
       audio.currentTime = (seekBar.value / 100) * audio.duration;
     });
+
+    // 无限长图片功能
+    (function() {
+      const img = document.getElementById('infinite-img');
+      const canvas = document.getElementById('infinite-canvas');
+      let lastRepeatCount = 0;
+      let imgLoaded = false;
+      let lastSliceHeight = 48;
+
+      function updateCanvas() {
+        if (!imgLoaded) return;
+        // 用 naturalWidth/naturalHeight 保证像素级别一致
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+        // 复制高度
+        lastSliceHeight = Math.min(48, imgH);
+        // 计算需要多少个片段
+        const container = document.getElementById('long-legs-container');
+        const rect = container.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const staticHeight = img.height;
+        let neededRepeats = Math.ceil((window.innerHeight + window.scrollY - (rect.top + window.scrollY + staticHeight)) / lastSliceHeight) + 10;
+        if (neededRepeats < 10) neededRepeats = 10;
+        if (neededRepeats !== lastRepeatCount) {
+          lastRepeatCount = neededRepeats;
+          // 设置canvas宽高为原图像素宽高
+          canvas.width = imgW;
+          canvas.height = neededRepeats * lastSliceHeight;
+          // 样式宽度与img一致
+          canvas.style.width = img.offsetWidth + 'px';
+          const ctx = canvas.getContext('2d');
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          // 画neededRepeats个最后片段
+          for (let i = 0; i < neededRepeats; i++) {
+            ctx.drawImage(
+              img,
+              0, imgH - lastSliceHeight, imgW, lastSliceHeight, // 源
+              0, i * lastSliceHeight, imgW, lastSliceHeight // 目标
+            );
+          }
+        }
+      }
+      img.onload = function() {
+        imgLoaded = true;
+        updateCanvas();
+      };
+      window.addEventListener('scroll', updateCanvas);
+      window.addEventListener('resize', updateCanvas);
+    })();
   </script>
 </body>
 </html>
