@@ -175,6 +175,29 @@
     body.dark-mode #infinite-canvas {
       filter: invert(1);
     }
+
+    #play-pause-custom {
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.3s ease, text-shadow 0.3s ease;
+      color: #ff2255;
+      text-shadow: 0 0 5px #ff2255;
+      background: none;
+      border: none;
+    }
+
+    #play-pause-custom:hover {
+      transform: scale(1.3) rotate(-5deg);
+      color: #ff0055;
+      text-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033;
+      filter: drop-shadow(0 0 5px red);
+    }
+
+    #play-pause-custom:active {
+      transform: scale(0.9) rotate(3deg);
+      color: #aa0022;
+      text-shadow: 0 0 10px #aa0022;
+    }
   </style>
 </head>
 <body>
@@ -196,14 +219,10 @@
 
     <div class="card">
       <h2 class="quote-text">「此曲只应天上有，<br>人间能得几回闻。」</h2>
-      <audio id="custom-audio">
-        <source src="audio_sample.mp3" type="audio/mpeg" />
+      <audio id="audio" src="audio_sample.mp3">
         你的破浏览器破到不支持音频播放🙄。
       </audio>
-      <div class="custom-audio-controls">
-        <button id="play-pause">🥵</button>
-        <input type="range" id="seek-bar" value="0">
-      </div>
+      <button id="play-pause-custom">🥵</button>
     </div>
 
     <div class="card">
@@ -219,7 +238,7 @@
   </div>
 
   <div id="long-legs-container" style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:60px;">
-    <img id="infinite-img" src="无限长.png" alt="无限长猫" style="display:block;width:100%;max-width:600px;height:auto;margin:0;padding:0;" />
+    <img id="infinite-img" src="无限长.png" alt="无限长zhǎng腿" style="display:block;width:100%;max-width:600px;height:auto;margin:0;padding:0;" />
     <canvas id="infinite-canvas" style="display:block;width:100%;max-width:600px;margin:0;padding:0;"></canvas>
   </div>
 
@@ -248,43 +267,39 @@
     }
 
     function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      localStorage.setItem('mode', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-      
-      const icon = document.getElementById("mode-icon");
-      icon.textContent = '🫥';
-      setTimeout(() => {
-        icon.textContent = document.body.classList.contains('dark-mode') ? '🥶' : '🥵';
-      }, 250);
-    }
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  localStorage.setItem('mode', isDarkMode ? 'dark' : 'light');
+
+  const icon = document.getElementById("mode-icon");
+  icon.textContent = '🫥';
+  setTimeout(() => {
+    icon.textContent = isDarkMode ? '🥶' : '🥵';
+  }, 250);
+}
+
 
     window.onload = () => {
-      if (localStorage.getItem('mode') === 'dark') {
+      const savedMode = localStorage.getItem('mode');
+      if (savedMode === 'dark') {
         document.body.classList.add('dark-mode');
-        document.getElementById("mode-icon").textContent = '🫥';
+        document.getElementById("mode-icon").textContent = '🥶';
+      } else {
+        document.getElementById("mode-icon").textContent = '🥵';
       }
     };
 
-    const audio = document.getElementById("custom-audio");
-    const playPauseBtn = document.getElementById("play-pause");
-    const seekBar = document.getElementById("seek-bar");
+    const audio = document.getElementById('audio');
+    const button = document.getElementById('play-pause-custom');
 
-    playPauseBtn.addEventListener("click", () => {
+    button.addEventListener('click', () => {
       if (audio.paused) {
         audio.play();
-        playPauseBtn.textContent = "😭";
+        button.textContent = '😭';
       } else {
         audio.pause();
-        playPauseBtn.textContent = "🥵";
+        button.textContent = '🥵';
       }
-    });
-
-    audio.addEventListener("timeupdate", () => {
-      seekBar.value = (audio.currentTime / audio.duration) * 100;
-    });
-
-    seekBar.addEventListener("input", () => {
-      audio.currentTime = (seekBar.value / 100) * audio.duration;
     });
 
     // 无限长图片功能
@@ -336,5 +351,6 @@
       window.addEventListener('resize', updateCanvas);
     })();
   </script>
+
 </body>
 </html>
