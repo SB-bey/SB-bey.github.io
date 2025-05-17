@@ -17,6 +17,8 @@
       color: #1d1d1f;
       font-size: 16px;
       transition: all 0.15s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     body.dark-mode {
@@ -243,11 +245,7 @@
 
     <div class="card">
       <h2 class="quote-text">「此曲只应天上有，<br />人间能得几回闻。」</h2>
-      <audio id="audio" src="audio_sample.mp3">
-        你的破浏览器破到不支持音频播放
-        <img src="emoji/wtxbushigay.png" alt="🙄" style="height: 1em; vertical-align: middle;" />
-        。
-      </audio>
+      <audio id="audio" src="audio_sample.mp3"></audio>
       <button id="play-pause-custom">
         <img src="emoji/white-up-pointing-backhand-index_1f446.png" alt="👆" style="height: 1em; vertical-align: middle;" />
       </button>
@@ -359,9 +357,9 @@
       }
 
       // 替换页面加载时的所有 emoji
-      replaceEmojisWithImages(document.querySelector('h1'));
+      // replaceEmojisWithImages(document.querySelector('h1'));
       replaceEmojisWithImages(document.querySelector('meta[name="description"]'));
-      replaceEmojisWithImages(document.querySelector('h2'));
+      // replaceEmojisWithImages(document.querySelector('h2'));
     };
 
     const audio = document.getElementById('audio');
@@ -425,6 +423,8 @@
       window.addEventListener('scroll', updateCanvas);
       window.addEventListener('resize', updateCanvas);
     })();
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
   </script>
 
 </body>
