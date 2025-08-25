@@ -63,11 +63,75 @@
     .image-grid img {
       width: 30%;
       border-radius: 12px;
-      transition: transform 0.15s ease-in-out;
+      transition: transform 0.15s ease-in-out, opacity 0.3s ease-in-out;
+      opacity: 0;
+    }
+
+    .image-grid img.lazy-loaded {
+      opacity: 1;
     }
 
     .image-grid img:hover {
       transform: scale(1.04);
+    }
+
+    /* 懒加载占位符样式 */
+    .lazy-placeholder {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 12px;
+    }
+
+    body.dark-mode .lazy-placeholder {
+      background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+      background-size: 200% 100%;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* 懒加载状态指示器 */
+    .lazy-loading {
+      position: relative;
+    }
+
+    .lazy-loading::after {
+      content: '加载中...';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 10;
+    }
+
+    body.dark-mode .lazy-loading::after {
+      background: rgba(255, 255, 255, 0.9);
+      color: black;
+    }
+
+    /* 加载失败样式 */
+    .lazy-error {
+      background: #ffebee !important;
+      color: #c62828;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      border: 1px solid #ffcdd2;
+    }
+
+    body.dark-mode .lazy-error {
+      background: #3e2723 !important;
+      color: #ff8a80;
+      border-color: #5d4037;
     }
 
     .button {
@@ -219,9 +283,9 @@
     </h1>
 
     <div class="image-grid">
-      <img src="images/photo1.jpg" alt="照片1" />
-      <img src="images/photo4.jpg.jpg" alt="照片2" />
-      <img src="images/photo3.jpg" alt="照片3" />
+      <img data-src="images/photo1.jpg" alt="照片1" class="lazy-image" />
+      <img data-src="images/photo4.jpg.jpg" alt="照片2" class="lazy-image" />
+      <img data-src="images/photo3.jpg" alt="照片3" class="lazy-image" />
     </div>
 
     <div class="card">
@@ -267,11 +331,127 @@
   </div>
 
   <div id="long-legs-container" style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:60px;">
-    <img id="infinite-img" src="无限长.png" alt="无限长zhǎng腿" style="display:block;width:100%;max-width:600px;height:auto;margin:0;padding:0;" />
+    <img id="infinite-img" data-src="无限长.png" alt="无限长zhǎng腿" class="lazy-image" style="display:block;width:100%;max-width:600px;height:auto;margin:0;padding:0;" />
     <canvas id="infinite-canvas" style="display:block;width:100%;max-width:600px;margin:0;padding:0;"></canvas>
   </div>
 
   <script>
+    // 懒加载功能
+    class LazyLoader {
+      constructor() {
+        this.images = document.querySelectorAll('.lazy-image');
+        this.observer = null;
+        this.loadedCount = 0;
+        this.totalCount = this.images.length;
+        this.init();
+      }
+
+      init() {
+        // 检查是否支持 Intersection Observer
+        if ('IntersectionObserver' in window) {
+          this.setupIntersectionObserver();
+        } else {
+          // 降级方案：使用滚动事件
+          this.setupScrollListener();
+        }
+      }
+
+      setupIntersectionObserver() {
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.loadImage(entry.target);
+              this.observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          rootMargin: '50px 0px', // 提前50px开始加载
+          threshold: 0.1
+        });
+
+        this.images.forEach(img => {
+          this.observer.observe(img);
+        });
+      }
+
+      setupScrollListener() {
+        // 降级方案：使用节流的滚动事件
+        let ticking = false;
+        
+        const checkImages = () => {
+          this.images.forEach(img => {
+            if (this.isInViewport(img)) {
+              this.loadImage(img);
+            }
+          });
+          ticking = false;
+        };
+
+        const requestTick = () => {
+          if (!ticking) {
+            requestAnimationFrame(checkImages);
+            ticking = true;
+          }
+        };
+
+        window.addEventListener('scroll', requestTick);
+        window.addEventListener('resize', requestTick);
+        
+        // 初始检查
+        checkImages();
+      }
+
+      isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
+
+      loadImage(img) {
+        const src = img.getAttribute('data-src');
+        if (!src) return;
+
+        // 添加加载状态
+        img.classList.add('lazy-loading');
+
+        // 创建新的Image对象来预加载
+        const tempImage = new Image();
+        
+        tempImage.onload = () => {
+          img.src = src;
+          img.classList.remove('lazy-loading');
+          img.classList.add('lazy-loaded');
+          this.loadedCount++;
+          
+          // 特殊处理无限长图片
+          if (img.id === 'infinite-img') {
+            // 触发无限长图片的加载事件
+            if (typeof img.onload === 'function') {
+              img.onload();
+            }
+          }
+          
+          // 在控制台显示加载进度（开发模式）
+          if (this.loadedCount === this.totalCount) {
+            console.log(`🎉 所有图片加载完成！共加载 ${this.totalCount} 张图片`);
+          }
+        };
+
+        tempImage.onerror = () => {
+          console.warn('Failed to load image:', src);
+          img.classList.remove('lazy-loading');
+          img.classList.add('lazy-error');
+          img.innerHTML = '加载失败';
+        };
+
+        tempImage.src = src;
+      }
+    }
+
     // 添加 emoji 到图片的映射
     const emojiToImage = {
       '🔥': 'hotface.png',
@@ -360,6 +540,9 @@
       // replaceEmojisWithImages(document.querySelector('h1'));
       replaceEmojisWithImages(document.querySelector('meta[name="description"]'));
       // replaceEmojisWithImages(document.querySelector('h2'));
+
+      // 初始化懒加载
+      new LazyLoader();
     };
 
     const audio = document.getElementById('audio');
@@ -416,10 +599,16 @@
           }
         }
       }
-      img.onload = function() {
+      
+      // 保存原始的onload函数
+      const originalOnload = function() {
         imgLoaded = true;
         updateCanvas();
       };
+      
+      // 设置onload函数，供懒加载器调用
+      img.onload = originalOnload;
+      
       window.addEventListener('scroll', updateCanvas);
       window.addEventListener('resize', updateCanvas);
     })();
